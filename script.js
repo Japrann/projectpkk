@@ -610,10 +610,10 @@ function showNotification(message, type = 'success', title = 'Notifikasi') {
     // Show notification
     notification.classList.add('show');
     
-    // Auto-hide after 5 seconds
+    // Auto-hide after 3 seconds
     setTimeout(() => {
         hideNotification();
-    }, 5000);
+    }, 3000);
 }
 
 function hideNotification() {
