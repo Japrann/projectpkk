@@ -1328,6 +1328,24 @@ html {
     box-shadow: var(--shadow-hover);
 }
 
+/* Ensure all buttons have consistent styling */
+.btn-primary,
+.btn-secondary,
+.btn-info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-primary i,
+.btn-secondary i,
+.btn-info i {
+    font-size: 0.9rem;
+}
+
 /* Admin Section */
 .admin-header {
     display: flex;
