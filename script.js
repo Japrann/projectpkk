@@ -58,6 +58,22 @@ function handleDirectAccess() {
     const path = window.location.pathname;
     const hash = window.location.hash.substring(1);
     
+    // Check for hash-based navigation first
+    if (hash === 'login') {
+        showSection('login');
+        return;
+    }
+    
+    if (hash === 'register') {
+        if (isLoggedIn) {
+            showSection(isLoggedIn && currentUser.role === 'admin' ? 'admin' : 'user');
+            showNotification('Anda sudah login!', 'error');
+        } else {
+            showSection('register');
+        }
+        return;
+    }
+    
     // Check for /admin or /user in URL
     if (path.includes('/admin') || hash === 'admin') {
         if (!isLoggedIn) {
@@ -82,16 +98,6 @@ function handleDirectAccess() {
         return;
     }
     
-    if (path.includes('/register') || hash === 'register') {
-        if (isLoggedIn) {
-            showSection(isLoggedIn && currentUser.role === 'admin' ? 'admin' : 'user');
-            showNotification('Anda sudah login!', 'error');
-        } else {
-            showSection('register');
-        }
-        return;
-    }
-    
     // Default behavior
     if (!isLoggedIn) {
         showSection('home');
@@ -106,7 +112,14 @@ function handleDirectAccess() {
 
 function navigateToSection(sectionId) {
     // Update URL without page reload
-    const url = sectionId === 'home' ? '/' : `/${sectionId}`;
+    let url;
+    if (sectionId === 'home') {
+        url = '/';
+    } else if (sectionId === 'login' || sectionId === 'register') {
+        url = `#${sectionId}`;
+    } else {
+        url = `/${sectionId}`;
+    }
     window.history.pushState({ section: sectionId }, '', url);
     showSection(sectionId);
 }
