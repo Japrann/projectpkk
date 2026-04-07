@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMKM Lokal - Platform Promosi Produk & Kalkulator HPP</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-store"></i>
+                    <span>UMKM Lokal</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Beranda</a></li>
+                    <li><a href="#products" class="nav-link">Produk</a></li>
+                    <li><a href="#calculator" class="nav-link">Kalkulator HPP</a></li>
+                    <li><a href="#about" class="nav-link">Tentang</a></li>
+                    <li><a href="#login" class="nav-link" id="loginLink">Login</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="dark-mode-toggle" id="darkModeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="wishlist-btn" id="wishlistBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Selamat Datang di UMKM Lokal</h1>
+                    <p class="hero-subtitle">Platform digital eksklusif untuk mempromosikan produk UMKM dan menghitung harga jual yang tepat</p>
+                    <div class="hero-buttons">
+                        <a href="#login" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login untuk Melanjutkan
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2 class="section-title">Fitur Platform</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-store"></i>
+                        <h3>Promosi Produk</h3>
+                        <p>Tampilkan produk UMKM Anda kepada ribuan pengunjung</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Kalkulator HPP</h3>
+                        <p>Hitung harga pokok produksi dengan akurat</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-whatsapp"></i>
+                        <h3>Integrasi WhatsApp</h3>
+                        <p>Hubungi penjual langsung via WhatsApp</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Dashboard Admin</h3>
+                        <p>Kelola produk dengan mudah dan efisien</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login CTA Section -->
+            <div class="login-cta">
+                <div class="login-cta-content">
+                    <h2>Siap Memulai?</h2>
+                    <p>Login sekarang untuk mengakses semua fitur platform UMKM Lokal</p>
+                    <a href="#login" class="btn btn-primary btn-large">
+                        <i class="fas fa-sign-in-alt"></i> Login Sekarang
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="section">
+            <div class="container">
+                <h2 class="section-title">Daftar Produk</h2>
+                
+                <!-- Search and Filter -->
+                <div class="products-controls">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Cari produk...">
+                    </div>
+                    <div class="filters">
+                        <select id="categoryFilter">
+                            <option value="">Semua Kategori</option>
+                            <option value="makanan">Makanan</option>
+                            <option value="minuman">Minuman</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="kerajinan">Kerajinan</option>
+                            <option value="elektronik">Elektronik</option>
+                        </select>
+                        <select id="sortFilter">
+                            <option value="default">Urutkan</option>
+                            <option value="price-low">Harga Terendah</option>
+                            <option value="price-high">Harga Tertinggi</option>
+                            <option value="name">Nama A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="allProducts">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Detail Section -->
+        <section id="product-detail" class="section">
+            <div class="container">
+                <button class="back-btn" onclick="showSection('products')">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+                <div class="product-detail" id="productDetailContent">
+                    <!-- Product detail will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="login-form">
+                        <h2 class="section-title">Login</h2>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" placeholder="Masukkan username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" placeholder="Masukkan password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <p class="login-note">
+                            Belum punya akun? <a href="#register" class="link-to-register">Daftar di sini</a>
+                        </p>
+                        <div class="admin-contact">
+                            <h4>Butuh akses admin?</h4>
+                            <p>Hubungi kami untuk mendapatkan kredensial admin:</p>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="fab fa-instagram"></i>
+                                    <span>@umkmlokal.id</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>admin@umkmlokal.id</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>+62 812-3456-7890</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="login-form">
+                        <h2 class="section-title">Daftar User Baru</h2>
+                        <form id="registerForm">
+                            <div class="form-group">
+                                <label for="regUsername">Username</label>
+                                <input type="text" id="regUsername" placeholder="Pilih username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regEmail">Email</label>
+                                <input type="email" id="regEmail" placeholder="Email aktif" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPassword">Password</label>
+                                <input type="password" id="regPassword" placeholder="Minimal 6 karakter" required minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <label for="regConfirmPassword">Konfirmasi Password</label>
+                                <input type="password" id="regConfirmPassword" placeholder="Ulangi password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regFullName">Nama Lengkap</label>
+                                <input type="text" id="regFullName" placeholder="Nama lengkap Anda" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Daftar Sekarang</button>
+                        </form>
+                        <p class="register-note">
+                            Sudah punya akun? <a href="#login" class="link-to-login">Login di sini</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Dashboard Section -->
+        <section id="user" class="section">
+            <div class="container">
+                <div class="user-header">
+                    <h2 class="section-title">Dashboard User</h2>
+                    <button class="btn btn-secondary" id="userLogoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                
+                <!-- User Welcome -->
+                <div class="user-welcome">
+                    <div class="welcome-content">
+                        <i class="fas fa-user-circle"></i>
+                        <h3>Selamat Datang, <span id="userDisplayName">User</span>!</h3>
+                        <p>Anda login sebagai User. Nikmati fitur melihat produk dan kalkulator HPP.</p>
+                    </div>
+                </div>
+
+                <!-- User Stats -->
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-box"></i>
+                        <h3>Total Produk</h3>
+                        <p class="stat-number" id="userTotalProducts">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Wishlist Saya</h3>
+                        <p class="stat-number" id="userWishlistCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Kalkulator HPP</h3>
+                        <p class="stat-number">
+                            <i class="fas fa-check"></i> Available
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="user-actions">
+                    <h3>Aksi Cepat</h3>
+                    <div class="action-buttons">
+                        <a href="#products" class="btn btn-primary">
+                            <i class="fas fa-shopping-bag"></i> Lihat Produk
+                        </a>
+                        <a href="#calculator" class="btn btn-secondary">
+                            <i class="fas fa-calculator"></i> Kalkulator HPP
+                        </a>
+                        <a href="#about" class="btn btn-info">
+                            <i class="fas fa-info-circle"></i> Tentang Platform
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <div class="container">
+                <div class="admin-header">
+                    <h2 class="section-title">Panel Admin</h2>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                
+                <!-- Admin Dashboard -->
+                <div class="admin-dashboard">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Total Produk</h3>
+                            <p class="stat-number" id="totalProducts">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Wishlist Items</h3>
+                            <p class="stat-number" id="totalWishlist">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tags"></i>
+                            <h3>Kategori</h3>
+                            <p class="stat-number">5</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Product Form -->
+                <div class="admin-section">
+                    <h3>Tambah Produk Baru</h3>
+                    <form class="add-product-form" id="addProductForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productName">Nama Produk</label>
+                                <input type="text" id="productName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productPrice">Harga (Rp)</label>
+                                <input type="number" id="productPrice" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productCategory">Kategori</label>
+                                <select id="productCategory" required>
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="makanan">Makanan</option>
+                                    <option value="minuman">Minuman</option>
+                                    <option value="fashion">Fashion</option>
+                                    <option value="kerajinan">Kerajinan</option>
+                                    <option value="elektronik">Elektronik</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="productWhatsApp">Nomor WhatsApp</label>
+                                <input type="tel" id="productWhatsApp" placeholder="628123456789" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Deskripsi</label>
+                            <textarea id="productDescription" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage">URL Gambar (opsional)</label>
+                            <input type="url" id="productImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah Produk</button>
+                    </form>
+                </div>
+
+                <!-- Manage Products -->
+                <div class="admin-section">
+                    <h3>Manajemen Produk</h3>
+                    <div class="products-table-container">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsList">
+                                <!-- Products will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="section">
+            <div class="container">
+                <h2 class="section-title">Kalkulator Harga Pokok Produksi (HPP)</h2>
+                
+                <div class="calculator-info">
+                    <h3>Apa itu HPP?</h3>
+                    <p>Harga Pokok Produksi (HPP) adalah total biaya yang dikeluarkan untuk memproduksi satu unit produk. 
+                    Dengan mengetahui HPP, Anda bisa menentukan harga jual yang menguntungkan.</p>
+                </div>
+
+                <div class="calculator-form">
+                    <form id="hppCalculator">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calcProductName">Nama Produk</label>
+                                <input type="text" id="calcProductName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="calcQuantity">Jumlah Produksi</label>
+                                <input type="number" id="calcQuantity" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calcRawMaterials">Biaya Bahan Baku (Rp)</label>
+                                <input type="number" id="calcRawMaterials" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="calcLabor">Biaya Tenaga Kerja (Rp)</label>
+                                <input type="number" id="calcLabor" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calcOperational">Biaya Operasional (Rp)</label>
+                                <input type="number" id="calcOperational" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="calcMargin">Margin Keuntungan (%)</label>
+                                <input type="number" id="calcMargin" min="0" max="100" value="30" required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Hitung HPP</button>
+                            <button type="button" class="btn btn-secondary" id="resetCalculator">Reset</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Calculation Results -->
+                <div class="calculator-results" id="calculatorResults" style="display: none;">
+                    <h3>Hasil Perhitungan</h3>
+                    <div class="result-cards">
+                        <div class="result-card">
+                            <i class="fas fa-coins"></i>
+                            <h4>Total Biaya Produksi</h4>
+                            <p class="result-value" id="totalCost">Rp 0</p>
+                        </div>
+                        <div class="result-card">
+                            <i class="fas fa-tag"></i>
+                            <h4>HPP per Produk</h4>
+                            <p class="result-value" id="hppPerUnit">Rp 0</p>
+                        </div>
+                        <div class="result-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Rekomendasi Harga Jual</h4>
+                            <p class="result-value" id="recommendedPrice">Rp 0</p>
+                        </div>
+                    </div>
+                    <div class="result-summary">
+                        <p><strong>Analisis:</strong> <span id="analysisText"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">Tentang Kami</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Misi Kami</h3>
+                        <p>Kami percaya bahwa UMKM adalah tulang punggung ekonomi Indonesia. Platform ini dibuat untuk membantu 
+                        para pelaku usaha kecil dan menengah mempromosikan produk mereka secara digital dan menentukan 
+                        harga jual yang tepat untuk kesuksesan bisnis mereka.</p>
+                        
+                        <h3>Mengapa Memilih Kami?</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Gratis untuk digunakan</li>
+                            <li><i class="fas fa-check"></i> Mudah dipahami untuk pemula</li>
+                            <li><i class="fas fa-check"></i> Kalkulator HPP yang akurat</li>
+                            <li><i class="fas fa-check"></i> Responsive untuk semua perangkat</li>
+                            <li><i class="fas fa-check"></i> Fokus pada UMKM lokal Indonesia</li>
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 UMKM Lokal. Semua hak dilindungi.</p>
+            <p>Made with <i class="fas fa-heart"></i> untuk UMKM Indonesia</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
