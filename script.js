@@ -61,13 +61,21 @@ function handleDirectAccess() {
     // Check for hash-based navigation first
     if (hash === 'login') {
         showSection('login');
+        if (path.includes('/register') || hash === 'register') {
+            if (isLoggedIn) {
+                showSection(isLoggedIn && currentUser.role === 'admin' ? 'admin' : 'user');
+                showNotification('Anda sudah login!', 'error', 'Sudah Login');
+            } else {
+                showSection('register');
+            }
+        }
         return;
     }
     
     if (hash === 'register') {
         if (isLoggedIn) {
             showSection(isLoggedIn && currentUser.role === 'admin' ? 'admin' : 'user');
-            showNotification('Anda sudah login!', 'error');
+            showNotification('Anda sudah login!', 'error', 'Sudah Login');
         } else {
             showSection('register');
         }
@@ -78,10 +86,10 @@ function handleDirectAccess() {
     if (path.includes('/admin') || hash === 'admin') {
         if (!isLoggedIn) {
             showSection('login');
-            showNotification('Silakan login terlebih dahulu untuk mengakses admin panel', 'error');
+            showNotification('Silakan login terlebih dahulu untuk mengakses admin panel', 'error', 'Akses Ditolak');
         } else if (currentUser && currentUser.role !== 'admin') {
             showSection('user');
-            showNotification('Akses ditolak! Hanya admin yang bisa mengakses panel ini.', 'error');
+            showNotification('Akses ditolak! Hanya admin yang bisa mengakses panel ini.', 'error', 'Akses Ditolak');
         } else {
             showSection('admin');
         }
@@ -91,7 +99,7 @@ function handleDirectAccess() {
     if (path.includes('/user') || hash === 'user') {
         if (!isLoggedIn) {
             showSection('login');
-            showNotification('Silakan login terlebih dahulu', 'error');
+            showNotification('Silakan login terlebih dahulu', 'error', 'Akses Ditolak');
         } else {
             showSection('user');
         }
@@ -134,6 +142,9 @@ function setupEventListeners() {
             navigateToSection(targetId);
         });
     });
+
+    // Notification close button
+    document.getElementById('notificationClose').addEventListener('click', hideNotification);
 
     // Mobile Menu
     const hamburger = document.querySelector('.hamburger');
@@ -185,7 +196,7 @@ function showSection(sectionId, updateURL = false) {
     const publicSections = ['home', 'login', 'register'];
     
     if (protectedSections.includes(sectionId) && !isLoggedIn) {
-        showNotification('Silakan login terlebih dahulu untuk mengakses fitur ini', 'error');
+        showNotification('Silakan login terlebih dahulu untuk mengakses fitur ini', 'error', 'Akses Ditolak');
         navigateToSection('home');
         return;
     }
@@ -577,27 +588,37 @@ function getCategoryLabel(category) {
     return labels[category] || category;
 }
 
-function showNotification(message, type = 'success') {
+function showNotification(message, type = 'success', title = 'Notifikasi') {
     const notification = document.getElementById('notification');
     const notificationText = document.getElementById('notificationText');
-    const icon = notification.querySelector('i');
+    const notificationTitle = document.getElementById('notificationTitle');
+    const notificationIcon = notification.querySelector('.notification-icon i');
     
+    // Set content
     notificationText.textContent = message;
+    notificationTitle.textContent = title;
     
-    // Set icon based on type
+    // Set icon and style based on type
+    notification.classList.remove('error');
     if (type === 'error') {
-        icon.className = 'fas fa-exclamation-circle';
-        notification.style.background = 'var(--danger-color)';
+        notificationIcon.className = 'fas fa-exclamation-circle';
+        notification.classList.add('error');
     } else {
-        icon.className = 'fas fa-check-circle';
-        notification.style.background = 'var(--success-color)';
+        notificationIcon.className = 'fas fa-check-circle';
     }
     
+    // Show notification
     notification.classList.add('show');
     
+    // Auto-hide after 5 seconds
     setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
+        hideNotification();
+    }, 5000);
+}
+
+function hideNotification() {
+    const notification = document.getElementById('notification');
+    notification.classList.remove('show');
 }
 
 // Form Validation
@@ -648,7 +669,7 @@ function handleLogin(e) {
         };
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         
-        showNotification(`Login berhasil! Selamat datang, ${user.displayName}`);
+        showNotification('Login berhasil!', 'success', 'Login Berhasil');
         updateNavigation();
         
         // Redirect to appropriate dashboard
@@ -661,7 +682,7 @@ function handleLogin(e) {
         // Reset form
         document.getElementById('loginForm').reset();
     } else {
-        showNotification('Username atau password salah!', 'error');
+        showNotification('Username atau password salah!', 'error', 'Login Gagal');
     }
 }
 
@@ -676,12 +697,12 @@ function handleRegister(e) {
     
     // Validasi
     if (password !== confirmPassword) {
-        showNotification('Password dan konfirmasi password tidak cocok!', 'error');
+        showNotification('Password dan konfirmasi password tidak cocok!', 'error', 'Validasi Gagal');
         return;
     }
     
     if (password.length < 6) {
-        showNotification('Password minimal 6 karakter!', 'error');
+        showNotification('Password minimal 6 karakter!', 'error', 'Validasi Gagal');
         return;
     }
     
@@ -690,13 +711,13 @@ function handleRegister(e) {
     
     // Check if username already exists
     if (users.find(u => u.username === username)) {
-        showNotification('Username sudah digunakan!', 'error');
+        showNotification('Username sudah digunakan!', 'error', 'Registrasi Gagal');
         return;
     }
     
     // Check if email already exists
     if (users.find(u => u.email === email)) {
-        showNotification('Email sudah digunakan!', 'error');
+        showNotification('Email sudah digunakan!', 'error', 'Registrasi Gagal');
         return;
     }
     
@@ -718,7 +739,7 @@ function handleRegister(e) {
     // Reset form
     document.getElementById('registerForm').reset();
     
-    showNotification('Registrasi berhasil! Silakan login dengan akun baru Anda.');
+    showNotification('Registrasi berhasil! Silakan login dengan akun baru Anda.', 'success', 'Registrasi Berhasil');
     
     // Redirect to login
     navigateToSection('login');
@@ -729,7 +750,7 @@ function handleLogout() {
     currentUser = null;
     localStorage.removeItem('currentUser');
     
-    showNotification('Logout berhasil!');
+    showNotification('Logout berhasil!', 'success', 'Logout Berhasil');
     updateNavigation();
     navigateToSection('home');
 }
