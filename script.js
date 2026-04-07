@@ -110,10 +110,15 @@ function handleDirectAccess() {
     if (!isLoggedIn) {
         showSection('home');
     } else {
+        // Show dashboard based on user role
         if (currentUser && currentUser.role === 'admin') {
             showSection('admin');
         } else {
             showSection('user');
+            // Ensure user dashboard data is loaded
+            setTimeout(() => {
+                loadUserDashboard();
+            }, 100);
         }
     }
 }
@@ -248,6 +253,10 @@ function showSection(sectionId, updateURL = false) {
     // Load user dashboard when navigating to user section
     if (sectionId === 'user') {
         loadUserDashboard();
+        // Additional load after a short delay to ensure DOM is ready
+        setTimeout(() => {
+            loadUserDashboard();
+        }, 50);
     }
 }
 
@@ -774,9 +783,27 @@ function updateNavigation() {
 
 // User Functions
 function loadUserDashboard() {
-    document.getElementById('userTotalProducts').textContent = products.length;
-    document.getElementById('userWishlistCount').textContent = wishlist.length;
-    document.getElementById('userDisplayName').textContent = currentUser ? currentUser.displayName : 'User';
+    console.log('Loading user dashboard...');
+    console.log('Products:', products.length);
+    console.log('Wishlist:', wishlist.length);
+    console.log('Current user:', currentUser);
+    
+    // Update stats
+    const totalProductsEl = document.getElementById('userTotalProducts');
+    const wishlistCountEl = document.getElementById('userWishlistCount');
+    const displayNameEl = document.getElementById('userDisplayName');
+    
+    if (totalProductsEl) {
+        totalProductsEl.textContent = products.length;
+    }
+    
+    if (wishlistCountEl) {
+        wishlistCountEl.textContent = wishlist.length;
+    }
+    
+    if (displayNameEl && currentUser) {
+        displayNameEl.textContent = currentUser.displayName;
+    }
 }
 
 // Admin Functions
