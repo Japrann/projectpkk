@@ -797,14 +797,35 @@ body.dark-mode {
     .hero {
         grid-template-columns: 1fr;
         text-align: center;
+        padding: 3rem 1rem;
     }
 
     .hero-title {
         font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
     }
 
     .hero-buttons {
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .hero-image {
+        font-size: 6rem;
+        margin-top: 2rem;
     }
 
     .products-controls {
@@ -846,11 +867,38 @@ body.dark-mode {
     .notification.show {
         transform: translateY(0);
     }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .login-cta {
+        padding: 3rem 0;
+    }
+
+    .login-cta-content h2 {
+        font-size: 2rem;
+    }
+
+    .login-cta-content p {
+        font-size: 1.1rem;
+    }
+
+    .btn-large {
+        padding: 18px 24px;
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 480px) {
     .section-title {
         font-size: 1.8rem;
+        margin-bottom: 2rem;
     }
 
     .products-grid {
@@ -858,15 +906,72 @@ body.dark-mode {
     }
 
     .hero {
-        padding: 2rem 1rem;
+        padding: 2rem 0.8rem;
+        margin: 1rem 0;
     }
 
     .hero-title {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+        gap: 0.8rem;
+    }
+
+    .hero-buttons .btn {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        max-width: 250px;
+    }
+
+    .hero-image {
+        font-size: 5rem;
+        margin-top: 1.5rem;
+    }
+
+    .features-section {
+        padding: 3rem 0;
+    }
+
+    .feature-card {
+        padding: 1.2rem;
+    }
+
+    .feature-card i {
+        font-size: 2.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .login-cta {
+        padding: 2.5rem 0;
+    }
+
+    .login-cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .login-cta-content p {
+        font-size: 1rem;
+    }
+
+    .btn-large {
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 0 15px;
     }
 }
 
